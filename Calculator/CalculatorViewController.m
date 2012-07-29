@@ -41,6 +41,8 @@
 }
 
 - (IBAction)periodPressed {
+    self.userIsInTheMiddleOfEnteringNumber = YES;
+
     if (!self.userIsInTheMiddleOfEnteringFloatingPointNumber) {
         self.display.text = [self.display.text stringByAppendingString:@"."];
         self.userIsInTheMiddleOfEnteringFloatingPointNumber = YES;
