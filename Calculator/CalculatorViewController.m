@@ -72,6 +72,15 @@
     self.display.text = resultString;
 }
 
+- (IBAction)clearPressed {
+    self.display.text = @"0";
+    self.history.text = @"";
+    self.userIsInTheMiddleOfEnteringNumber = NO;
+    self.userIsInTheMiddleOfEnteringFloatingPointNumber = NO;
+
+    [self.brain clearStack];
+}
+
 - (void)viewDidUnload {
     [self setHistory:nil];
     [super viewDidUnload];

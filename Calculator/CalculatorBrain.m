@@ -34,6 +34,11 @@
     return [operandObject doubleValue];
 }
 
+- (void) clearStack
+{
+    [self.operandStack removeAllObjects];
+}
+
 - (double) performOperation:(NSString *)operation
 {
     double result = 0;
