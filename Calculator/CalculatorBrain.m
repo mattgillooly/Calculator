@@ -46,11 +46,13 @@
     if ([operation isEqualToString:@"+"]) {
         result = [self popOperand] + [self popOperand];
     } else if ([operation isEqualToString:@"-"]) {
-        result = [self popOperand] - [self popOperand];
+        double amount_to_subtract = [self popOperand];
+        result = [self popOperand] - amount_to_subtract;
     } else if ([operation isEqualToString:@"*"]) {
         result = [self popOperand] * [self popOperand];
     } else if ([operation isEqualToString:@"/"]) {
-        result = [self popOperand] / [self popOperand];
+        double amount_to_divide_by = [self popOperand];
+        result = [self popOperand] / amount_to_divide_by;
     } else if ([operation isEqualToString:@"sin"]) {
         result = sin([self popOperand]);
     } else if ([operation isEqualToString:@"cos"]) {
