@@ -11,6 +11,7 @@
 
 @interface CalculatorViewController()
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringNumber;
+@property (nonatomic) BOOL userIsInTheMiddleOfEnteringFloatingPointNumber;
 @property (nonatomic, strong) CalculatorBrain *brain;
 @end
 
@@ -18,6 +19,7 @@
 
 @synthesize display = _display;
 @synthesize userIsInTheMiddleOfEnteringNumber = _userIsInTheMiddleOfEnteringNumber;
+@synthesize userIsInTheMiddleOfEnteringFloatingPointNumber = _userIsInTheMiddleOfEnteringFloatingPointNumber;
 @synthesize brain = _brain;
 
 - (CalculatorBrain *) brain
@@ -37,9 +39,17 @@
     }
 }
 
+- (IBAction)periodPressed {
+    if (!self.userIsInTheMiddleOfEnteringFloatingPointNumber) {
+        self.display.text = [self.display.text stringByAppendingString:@"."];
+        self.userIsInTheMiddleOfEnteringFloatingPointNumber = YES;
+    }
+}
+
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.userIsInTheMiddleOfEnteringNumber = NO;
+    self.userIsInTheMiddleOfEnteringFloatingPointNumber = NO;
 }
 
 - (IBAction)operationPressed:(UIButton *)sender {
