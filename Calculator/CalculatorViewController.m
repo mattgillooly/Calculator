@@ -18,6 +18,7 @@
 @implementation CalculatorViewController
 
 @synthesize display = _display;
+@synthesize history = _history;
 @synthesize userIsInTheMiddleOfEnteringNumber = _userIsInTheMiddleOfEnteringNumber;
 @synthesize userIsInTheMiddleOfEnteringFloatingPointNumber = _userIsInTheMiddleOfEnteringFloatingPointNumber;
 @synthesize brain = _brain;
@@ -48,15 +49,31 @@
 
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
+
+    if (self.history.text != @"") {
+        self.history.text = [self.history.text stringByAppendingString:@" "];
+    }
+    self.history.text = [self.history.text stringByAppendingString:self.display.text];
+
     self.userIsInTheMiddleOfEnteringNumber = NO;
     self.userIsInTheMiddleOfEnteringFloatingPointNumber = NO;
 }
 
 - (IBAction)operationPressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringNumber) [self enterPressed];
+    
+    if (self.history.text != @"") {
+        self.history.text = [self.history.text stringByAppendingString:@" "];
+    }
+    self.history.text = [self.history.text stringByAppendingString:sender.currentTitle];
+
     double result = [self.brain performOperation:sender.currentTitle];
     NSString *resultString = [NSString stringWithFormat:@"%g", result];
     self.display.text = resultString;
 }
 
+- (void)viewDidUnload {
+    [self setHistory:nil];
+    [super viewDidUnload];
+}
 @end
